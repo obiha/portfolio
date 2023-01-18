@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import Navigation from './Navigation';
 import Desktop from './Desktop';
 import Mobile from './Mobile';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import GitHubIcon from '@mui/icons-material/GitHub';
 
 
 

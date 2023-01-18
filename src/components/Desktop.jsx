@@ -1,39 +1,91 @@
 import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import { motion, useCycle } from "framer-motion";
-import Navigation from './Navigation';
-import Header from './Header';
+import IconButton from '@mui/material/IconButton';
+import Box from '@mui/material/Box';
+import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
- 
-
-
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 
 
 const Desktop = () => {
 
-        const [isOpen, setIsOpen] = useState(false);
+        const theme = useTheme();
 
-        const onClick = () => {setIsOpen(!isOpen)}
+
+        function sendMail(name, email, subject, message) {
+
+                const myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/json");
+                myHeaders.set('Authorization', 'Basic ' + btoa('8edcb3860cd33ee0733d8f9604fd4333'+":" +'bb20894356ad788e6a563b9eba35fc36'));
+
+                const data = JSON.stringify({
+                        "Messages": [{
+                                "From": { "Email": email, "Name": name },
+                                "To": [{ "Email": "joshua.obiha@hotmail.com", "Name": "Joshua Obiha" }],
+                                "Subject": subject,
+                                "TextPart": message
+                        }]
+
+                });
+
+                // const config = {
+                //         method: 'post',
+                //         url: 'https://api.mailjet.com/v3.1/send',
+                //         data: data,
+                //         headers: { 'Content-Type': 'application/json' },
+                //         auth: { username: '8edcb3860cd33ee0733d8f9604fd4333', password: 'bb20894356ad788e6a563b9eba35fc36' },
+                // };
+
+                const requestOptions = {
+                        method: 'POST',
+                        headers: myHeaders,
+                        body: data,
+                      };
+                    
+                      fetch("https://api.mailjet.com/v3.1/send", requestOptions)
+                        .then(response => response.text())
+                        .then(result => console.log(result))
+                        .catch(error => console.log('error', error));
+
+        }
+
 
         return (
-                <div style={{ position: "absolute", backgroundColor: '#FAF9F6', height: '100%', width: '100%', marginTop: "0%", marginLeft: "0%"}}>
-                        <div style={{width:"100%",backgroundColor:'#FAF9F6', display:'flex', justifyContent:'right', marginTop:'1%'}}>
-                               <div style={{marginleft:'2%', marginRight:'2%', cursor:'pointer'}}><a>Home</a></div> 
-                               <div style={{marginleft:'2%', marginRight:'2%', cursor:'pointer'}}><a>About</a></div>
-                               <div style={{marginleft:'2%', marginRight:'2%', cursor:'pointer'}}> <a>Skills</a></div>
-                               <div style={{marginleft:'2%', marginRight:'2%', cursor:'pointer'}}><a>Services</a></div>
-                               <div style={{marginleft:'2%', marginRight:'2%', cursor:'pointer'}}><a>Portfolio</a></div>
-                               <div style={{marginleft:'2%', marginRight:'2%', cursor:'pointer'}}><a>Contact</a></div>
-                               </div>                        
+                <div style={{ position: "absolute", backgroundColor: '#FAF9F6', height: '500%', width: '100%', marginTop: "0%", marginLeft: "0%", borderColor: '#FF0000' }}>
+                        <div style={{ top: '0', position: 'sticky', width: "100%", backgroundColor: '#FAF9F6', display: 'flex', justifyContent: 'right', marginTop: '0%', padding: '20px', zIndex: '19', }}>
+                                <motion.div style={{ marginleft: '2%', marginRight: '2%', marginTop: '0.2%', cursor: 'pointer', verticalAlign: 'middle', justifyContent: 'center', alignItems: 'center' }}
+                                        whileHover={{ scale: 1.1, rotate: 0, color: '#000000' }}
+                                ><a href="#" style={{ color: '#000000', textDecoration: 'none', verticalAlign: 'middle' }}>Home</a>
+                                </motion.div>
+                                <motion.div style={{ marginleft: '2%', marginRight: '2%', marginTop: '0.2%', cursor: 'pointer', verticalAlign: 'middle' }}
+                                        whileHover={{ scale: 1.1, rotate: 0, color: '#000000' }}><a style={{ verticalAlign: 'middle' }}>About</a></motion.div>
+                                <motion.div style={{ marginleft: '2%', marginRight: '2%', marginTop: '0.2%', cursor: 'pointer', verticalAlign: 'middle' }}
+                                        whileHover={{ scale: 1.1, rotate: 0, color: '#000000' }}> <a style={{ verticalAlign: 'middle' }}>Skills</a></motion.div>
+                                <motion.div style={{ marginleft: '2%', marginRight: '2%', marginTop: '0.2%', cursor: 'pointer', verticalAlign: 'middle' }}
+                                        whileHover={{ scale: 1.1, rotate: 0, color: '#000000' }}><a style={{ verticalAlign: 'middle' }}>Services</a></motion.div>
+                                <motion.div style={{ marginleft: '2%', marginRight: '2%', marginTop: '0.2%', cursor: 'pointer', verticalAlign: 'middle' }}
+                                        whileHover={{ scale: 1.1, rotate: 0, color: '#000000' }}><a style={{ verticalAlign: 'middle' }}>Portfolio</a></motion.div>
+                                <motion.div style={{ marginleft: '2%', marginRight: '2%', marginTop: '0.2%', cursor: 'pointer', verticalAlign: 'middle' }}
+                                        whileHover={{ scale: 1.1, rotate: 0, color: '#000000' }}><a style={{ verticalAlign: 'middle' }}>Contact</a></motion.div>
 
-                        <div style={{ borderStyle: "solid", borderWidth: "thin", borderColor: "#FAF9F6", position: "relative", width: '98%', marginLeft: "1%", marginTop: "0%", borderRadius: '9px', }}>
+                                <motion.div style={{ marginleft: '2%', marginRight: '2%', cursor: 'pointer', verticalAlign: 'middle', justifyContent: 'center', alignItems: 'center' }} whileHover={{ scale: 1.1, rotate: 0, color: '#000000' }}>
+                                        <a style={{ verticalAlign: 'middle' }}> <IconButton color="inherit" style={{ verticalAlign: 'middle' }}>{theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}</IconButton> </a>
+                                </motion.div>
+                        </div>
+
+
+
+                        <div style={{ borderStyle: "solid", borderWidth: "thin", borderColor: "#FAF9F6", position: "relative", width: '100%', marginLeft: "0%", marginTop: "0%", backgroundColor: '#FAF9F6' }}>
 
                                 {/*Displays the greetings and Cool Button */}
-                                <motion.div 
-                                style={{ marginLeft: "5%", marginRight: "1.5%", marginTop: "5%", marginBottom: "5%", fontSize: "46px" }}
-                             
-                                whileInView={{backgroundColor: "#FAF9F6",y:0,transition: {type: "spring", bounce: 0.5, duration: 1.50}}}
-                                viewport={{once: true, amount: 0.8}}
+                                <motion.div
+                                        style={{ marginLeft: "5%", marginRight: "5%", marginTop: "5%", marginBottom: "5%", fontSize: "46px" }}
+
+                                        whileInView={{ backgroundColor: "#FAF9F6", y: 0, transition: { type: "spring", bounce: 0.5, duration: 1.50 } }}
+                                        viewport={{ once: true, amount: 0.8 }}
                                 >
                                         Joshua Obiha
                                         {/* @joshuaobiha */}
@@ -41,43 +93,43 @@ const Desktop = () => {
                                                 whileHover={{ scale: 1.1, rotate: 0, }}
                                                 whileTap={{ scale: 0.9, background: "#FFFFFF" }} onClick={}>
                                         </motion.div> */}
-                                        <motion.button style={{ float: "right", marginRight: "4%", marginTop: "1%", outline:'none', border: 'none', cursor: 'pointer', width:'50px', height:'50px', borderRadius:'50%', background:'#000000',fontSize: "16px" , color:"#FFFFFF"}}
-                                        whileHover={{ scale: 1.8, rotate: 0, }}
-                                        >
-                                                {/* {isOpen ? "Yes" : "No"} */}
-                                           
-                                        <svg width="23" height="23" viewBox='0 0 23 23'></svg>
-                                        </motion.button>
 
-                                        
+
+                                        {/* <motion.button style={{ float: "right", marginRight: "5%", marginTop: "0%", outline:'none', border: 'none', cursor: 'none', width:'200px', height:'200px', borderRadius:'20%', background:'#F1F5F5',fontSize: "16px" , color:"#FFFFFF"}}>
+                                                                          
+                                        <img src={require('../images/profile.jpg')} style={{width: "98%",height: "97%", borderRadius:'20%', zIndex:'2', marginRight:'0%', marginLeft:'0%', marginTop:'0%'}}/>
+                                        </motion.button> */}
+
+
 
                                 </motion.div>
 
-                                <motion.div 
-                                style={{ backgroundColor: "#FAF9F6", height: '22em', borderRadius: '9px', marginTop: "17%", marginLeft: "1%", marginRight: "1%", marginBottom: "3%", }}
-                                whileInView={{backgroundColor: "#FAF9F6",y:0,transition: {type: "spring", bounce: 0.5, duration: 1.5}}}
-                                viewport={{once: true, amount: 0.8}}
+                                <motion.div
+                                        style={{ backgroundColor: "#FAF9F6", height: '22em', borderRadius: '9px', marginTop: "17%", marginLeft: "1%", marginRight: "1%", marginBottom: "3%", }}
+                                        whileInView={{ backgroundColor: "#FAF9F6", y: 0, transition: { type: "spring", bounce: 0.5, duration: 1.5 } }}
+                                        viewport={{ once: true, amount: 0.8 }}
                                 >
                                         <h1 class="display-1" style={{ marginLeft: "4%", paddingTop: "1%" }}>Hey!</h1>
 
                                         <p style={{ marginLeft: "4%", paddingTop: "2%", width: "60%", fontSize: "20px" }} class="text-left">
                                                 My name is Joshua Obiha, a recent Computer Science graudate. Currently exploring the intersection of Technology, Business and Design  and I'm seeking roles in Web Development</p>
-                                        
+
                                         <div style={{ marginBottom: "10em", marginLeft: "3%" }}>
-                                                <button type="button" class="btn btn-dark btn-secondary" data-toggle="tooltip" data-placement="top" title="Send Email" style={{ marginRight: '1%', marginLeft: '1%' }} onClick={() => window.location = 'mailto:joshua.obiha@hotmail.com'}>GET IN TOUCH</button>
+                                                <button type="button" class="btn btn-dark btn-secondary" data-toggle="tooltip" data-placement="top" title="Send Email" style={{ marginRight: '1%', marginLeft: '1%' }} onClick={() => window.location = 'mailto:joshua.obiha@hotmail.com'}>
+                                                        GET IN TOUCH</button>
                                                 {/* <button style={{ marginLeft: '1%', marginRight: '1%' }} type="button" class="btn btn-outline-dark">RESUME</button> */}
                                                 <a style={{ marginLeft: '1%', marginRight: '1%' }} type="button" href="https://drive.google.com/file/d/10FgDt6_V4YfoZ69Ofp-CVWWJE8bEighh/view" class="btn btn-outline-dark">PDF Resume</a>
                                         </div>
                                 </motion.div>
 
                                 {/* Selected Work div to be made a component//////////////////////////////////////////////////////////////// */}
-                                <div style={{ backgroundColor: '#FAF9F6', borderBottomLeftRadius: "0px", borderRadius: "0px", marginLeft: "2%", marginRight: "2%", marginTop:'1%' ,marginBottom:"1%", color: "#FAF9F6", display:'flex', justifyContent:"center"}}>
+                                <div style={{ backgroundColor: '#FAF9F6', borderBottomLeftRadius: "0px", borderRadius: "0px", marginLeft: "2%", marginRight: "2%", marginTop: '1%', marginBottom: "1%", color: "#FAF9F6", display: 'flex', justifyContent: "center" }}>
 
 
-                                <motion.div style={{height:'250px', width:'350px',backgroundColor:"#000000", marginLeft:"2%", marginRight:"2%", marginTop:"2%", marginBottom:'2%', borderRadius: "9px",zIndex:'1'}}
-                                whileHover={{ scale: 1.2, rotate: 0 }}
-                                >
-                                <img src={require('../images/exp.jpg')} style={{width: "100%",height: "100%", borderRadius: '9px', zIndex:'2', marginRight:'2%', marginLeft:'0%', marginTop:'0%'}}/>
+                                        <motion.div style={{ height: '250px', width: '350px', backgroundColor: "#000000", marginLeft: "2%", marginRight: "2%", marginTop: "2%", marginBottom: '2%', borderRadius: "9px", zIndex: '1' }}
+                                                whileHover={{ scale: 1.2, rotate: 0 }}
+                                        >
+                                                <img src={require('../images/exp.jpg')} style={{ width: "100%", height: "100%", borderRadius: '9px', zIndex: '2', marginRight: '2%', marginLeft: '0%', marginTop: '0%' }} />
 
                                                 <div style={{
                                                         position: "relative",
@@ -87,18 +139,18 @@ const Desktop = () => {
                                                         backgroundColor: '#FFFFFF',
                                                         left: '0',
                                                         top: '-100%',
-                                                        opacity:'40%', borderRadius: "9px",
-                                                        backgroundColor:'#000000',marginRight:'2%', marginLeft:'0%', marginTop:'0%',
+                                                        opacity: '40%', borderRadius: "9px",
+                                                        backgroundColor: '#000000', marginRight: '2%', marginLeft: '0%', marginTop: '0%',
                                                 }} class="shadow p-3" >
-                                                       EXPERIENCE
+                                                        EXPERIENCE
                                                 </div>
-                                </motion.div>
+                                        </motion.div>
 
 
-                                <motion.div style={{height:'250px', width:'350px',backgroundColor:"#000000", marginLeft:"2%", marginRight:"2%", marginTop:"2%", marginBottom:'2%', borderRadius: "9px",zIndex:'1'}}
-                                whileHover={{ scale: 1.2, rotate: 0 }}
-                                >
-                                <img src={require('../images/skills.jpg')} style={{width: "100%",height: "100%", borderRadius: '9px', zIndex:'2', marginRight:'2%', marginLeft:'0%', marginTop:'0%'}}/>
+                                        <motion.div style={{ height: '250px', width: '350px', backgroundColor: "#000000", marginLeft: "2%", marginRight: "2%", marginTop: "2%", marginBottom: '2%', borderRadius: "9px", zIndex: '1' }}
+                                                whileHover={{ scale: 1.2, rotate: 0 }}
+                                        >
+                                                <img src={require('../images/skills.jpg')} style={{ width: "100%", height: "100%", borderRadius: '9px', zIndex: '2', marginRight: '2%', marginLeft: '0%', marginTop: '0%' }} />
 
                                                 <div style={{
                                                         position: "relative",
@@ -108,17 +160,17 @@ const Desktop = () => {
                                                         backgroundColor: '#FFFFFF',
                                                         left: '0',
                                                         top: '-100%',
-                                                        opacity:'40%', borderRadius: "9px",
-                                                        backgroundColor:'#000000',marginRight:'2%', marginLeft:'0%', marginTop:'0%',
+                                                        opacity: '40%', borderRadius: "9px",
+                                                        backgroundColor: '#000000', marginRight: '2%', marginLeft: '0%', marginTop: '0%',
                                                 }} class="shadow p-3" >
-                                                       SKILLS
+                                                        SKILLS
                                                 </div>
-                                </motion.div>
+                                        </motion.div>
 
-                                <motion.div style={{height:'250px', width:'350px',backgroundColor:"#000000", marginLeft:"2%", marginRight:"2%", marginTop:"2%", marginBottom:'2%', borderRadius: "9px",zIndex:'1'}}
-                                whileHover={{ scale: 1.2, rotate: 0 }}
-                                >
-                                <img src={require('../images/proj.jpg')} style={{width: "100%",height: "100%", borderRadius: '9px', zIndex:'2', marginRight:'2%', marginLeft:'0%', marginTop:'0%'}}/>
+                                        <motion.div style={{ height: '250px', width: '350px', backgroundColor: "#000000", marginLeft: "2%", marginRight: "2%", marginTop: "2%", marginBottom: '2%', borderRadius: "9px", zIndex: '1' }}
+                                                whileHover={{ scale: 1.2, rotate: 0 }}
+                                        >
+                                                <img src={require('../images/proj.jpg')} style={{ width: "100%", height: "100%", borderRadius: '9px', zIndex: '2', marginRight: '2%', marginLeft: '0%', marginTop: '0%' }} />
 
                                                 <div style={{
                                                         position: "relative",
@@ -128,139 +180,85 @@ const Desktop = () => {
                                                         backgroundColor: '#FFFFFF',
                                                         left: '0',
                                                         top: '-100%',
-                                                        opacity:'40%', borderRadius: "9px",
-                                                        backgroundColor:'#000000',marginRight:'2%', marginLeft:'0%', marginTop:'0%',
+                                                        opacity: '40%', borderRadius: "9px",
+                                                        backgroundColor: '#000000', marginRight: '2%', marginLeft: '0%', marginTop: '0%',
                                                 }} class="shadow p-3" >
-                                                       PORTFOLIO
+                                                        PORTFOLIO
                                                 </div>
-                                </motion.div>
+                                        </motion.div>
 
-                                <motion.div style={{height:'250px', width:'350px',backgroundColor:"#000000", marginLeft:"2%", marginRight:"2%", marginTop:"2%", marginBottom:'2%', borderRadius: "9px",zIndex:'1'}}
-                                whileHover={{ scale: 1.2, rotate: 0 }}
-                                >
-                                <img src={require('../images/proj.jpg')} style={{width: "100%",height: "100%", borderRadius: '9px', zIndex:'2', marginRight:'2%', marginLeft:'0%', marginTop:'0%'}}/>
+                                        <motion.div style={{ height: '250px', width: '350px', backgroundColor: "#000000", marginLeft: "2%", marginRight: "2%", marginTop: "2%", marginBottom: '2%', borderRadius: "9px", zIndex: '1' }}
+                                                whileHover={{ scale: 1.2, rotate: 0 }}
+                                        >
+                                                <img src={require('../images/proj.jpg')} style={{ width: "100%", height: "100%", borderRadius: '9px', zIndex: '2', marginRight: '2%', marginLeft: '0%', marginTop: '0%' }} />
 
                                                 <div style={{
                                                         position: "relative",
                                                         zIndex: '3',
                                                         width: '100%',
                                                         height: '100%',
-                                                        backgroundColor: '#FFFFFF',
                                                         left: '0',
                                                         top: '-100%',
-                                                        opacity:'40%', borderRadius: "9px",
-                                                        backgroundColor:'#000000',marginRight:'2%', marginLeft:'0%', marginTop:'0%',
+                                                        opacity: '40%', borderRadius: "9px",
+                                                        backgroundColor: '#000000',
+                                                        marginRight: '2%', marginLeft: '0%', marginTop: '0%',
                                                 }} class="shadow p-3" >
-                                                       CURRENT WORK
+                                                        CURRENT WORK
                                                 </div>
-                                </motion.div>
-
-
-                                {/* <motion.div style={{height:'250px', width:'350px',backgroundColor:"#FFFFFF", marginLeft:"2%", marginRight:"2%", marginTop:"2%", marginBottom:'2%', borderRadius: "9px",zIndex:'1'}}
-                                whileHover={{ scale: 1.2, rotate: 0 }}
-                                >
-                                <img src={require('../images/exp.jpg')} style={{width: "96%",height: "95%", borderRadius: '9px', zIndex:'2', marginRight:'2%', marginLeft:'2%', marginTop:'2%',  marginBottom:'2%'}}/>
-
-                                                <div style={{
-                                                        position: "relative",
-                                                        zIndex: '3',
-                                                        width: '100%',
-                                                        height: '100%',
-                                                        backgroundColor: '#FFFFFF',
-                                                        left: '0',
-                                                        top: '-100%',
-                                                        opacity:'50%',
-                                                        borderRadius: "9px",
-                                                        backgroundColor:'#000000',
-                                                    
-                                                }}>
-                                                       EXPERIENCE
-                                                </div>
-                                </motion.div> */}
-
-
-                            
-
-                             
-                                  
-
+                                        </motion.div>
                                 </div>
 
-
-                                {/* <div style={{ backgroundColor: '#FAF9F6', borderBottomLeftRadius: "0px", borderRadius: "0px", marginLeft: "0%", marginRight: "0%", marginTop:'1%' ,marginBottom:"1%", color: "#FFFFFF", display:'flex', justifyContent:"right"}}>
-
-                                
-                                        
-<motion.div style={{height:'450px', width:'350px',backgroundColor:"#FFFFFF", marginLeft:"2%", marginRight:"2%", marginTop:"2%", marginBottom:'2%', borderRadius: "9px",zIndex:'1'}}
-whileHover={{ scale: 1.2, rotate: 0 }}
->
-<img src={require('../images/languagepic.jpg')} style={{width: "96%",height: "50%", borderRadius: '9px', zIndex:'2', marginRight:'2%', marginLeft:'2%', marginTop:'2%'}}/>
-
-                <div style={{
-                        position: "relative",
-                        zIndex: '3',
-                        width: '100%',
-                        height: '50%',
-                        backgroundColor: '#FFFFFF',
-                        left: '0',
-                        top: '0%',
-                        borderBottomLeftRadius: "9px",
-                        borderBottomRightRadius: "9px",
-                }}>
-                       EXPERIENCE
-                </div>
-</motion.div>
-
-<motion.div style={{height:'450px', width:'350px',backgroundColor:"#FFFFFF", marginLeft:"2%", marginRight:"2%", marginTop:"2%", marginBottom:'2%', borderRadius: "9px",zIndex:'1'}}
-whileHover={{ scale: 1.2, rotate: 0 }}
->
-<img src={require('../images/languagepic.jpg')} style={{width: "96%",height: "50%", borderRadius: '9px', zIndex:'2', marginRight:'2%', marginLeft:'2%', marginTop:'2%'}}/>
-
-                <div style={{
-                        position: "relative",
-                        zIndex: '3',
-                        width: '100%',
-                        height: '50%',
-                        backgroundColor: '#FFFFFF',
-                        left: '0',
-                        top: '0%',
-                        borderBottomLeftRadius: "9px",
-                        borderBottomRightRadius: "9px",
-                }}>
-                       EXPERIENCE
-                </div>
-</motion.div>
-
-
-</div> */}
-
-                              
-
-                                {/* WHAT I DO Div to be made a component */}
-                                {/* <div style={{ backgroundColor: "#000000", height: '29em', borderBottomLeftRadius: "9px", borderRadius: "9px", marginLeft: "1%", marginRight: "1%", color: "#FFFFFF" }}>
-                                        <h1 style={{ marginLeft: "4%", paddingTop: "1%" }}>WHAT I DO</h1>
-
-                                        <div style={{ width: "17%", backgroundColor: "#FFFFFF", marginLeft: "4%", marginRight: "2%", marginTop: "1%", marginBottom: "2%", height: "75%", borderRadius: '9px', }}>
-                                                hello
-
-                                        </div>
-                                </div> */}
 
                                 {/* Just a Gap Div */}
-                                <div style={{ textAlign: "center", marginBottom: "10em", marginTop: "10em" }}>
+                                <div style={{ textAlign: "center", height: "10em", backgroundColor: "#FAF9F6" }}>
+
                                 </div>
                         </div>
-                        
-                        
+
+                        <div style={{ marginLeft: '4%', marginRight: '4%' }}>
+
+                                <form>
+                                        <div style={{ width: '20em' }} class="form-group">
+                                                <label> First Name: </label>
+                                                <input class="form-control form-control-lg" type="text" name="firstname" />
+                                        </div>
+
+                                        <div style={{ width: '20em' }} class="form-group">
+                                                <label> Last Name: </label>
+                                                <input class="form-control form-control-lg" type="text" name="lastname" />
+                                        </div>
+                                        <div style={{ width: '20em' }} class="form-group">
+                                                <label> Email: </label>
+                                                <input type="email" class="form-control form-control-lg" name="emailInput" />
+                                        </div>
+                                        <div style={{ width: '20em' }} class="form-group">
+                                                <label> Message: </label>
+                                                <input class="form-control form-control-lg" type="text" name="message" />
+                                        </div>
+
+
+                                        <input type="submit" class="btn btn-primary" value="Submit" />
+
+
+                                </form>
+
+
+
+
+
+                        </div>
+
+
+
                         {/* Footer Should be made a component  */}
                         <div style={{ backgroundColor: "#F8F9FA" }}>
                                 <div style={{ backgroundColor: "#F8F9FA", paddingBottom: "5%", paddingTop: "2%", textAlign: "center", marginBottom: "0" }}>
-                                        <a href="https://www.linkedin.com/in/joshuaobiha/" class="link-dark"> <LinkedInIcon color="#00b8ff" fontSize="large"  style={{ marginRight: '1%', marginTop: '2%' }} /></a>
+                                        <a href="https://www.linkedin.com/in/joshuaobiha/" class="link-dark"> <LinkedInIcon color="#00b8ff" fontSize="large" style={{ marginRight: '1%', marginTop: '2%' }} /></a>
                                         <a href="https://github.com/obiha" class="link-dark"> <GitHubIcon color="#00b8ff" fontSize="large" style={{ marginRight: '1%', marginTop: '2%' }} /></a></div>
-                
+
 
                                 <h4 style={{ marginLeft: "2%", paddingTop: "0%" }}>How I built this</h4>
-                                <div style={{ marginLeft: "2%" }}><p><a href="#" target="_blank" class="link-primary">React.js</a> | <a href="#" target="_blank" class="link-primary">material UI</a> | <a href="https://www.framer.com/motion/" target="_blank" class="link-primary">Framer Motion Animation Library</a> | <a href="https://github.com/obiha/portfolio" target="_blank" class="link-primary">Github Repository</a></p></div>
+                                <div style={{ marginLeft: "2%" }}><p><a href="https://reactjs.org/" target="_blank" rel="noreferrer" class="link-primary">React.js</a> | <a href="material-ui.com/" target="_blank" rel="noreferrer" class="link-primary">material UI</a> | <a href="https://www.framer.com/motion/" target="_blank" rel="noreferrer" class="link-primary">Framer Motion Animation Library</a> | <a href="https://github.com/obiha/portfolio" target="_blank" rel="noreferrer" class="link-primary">Github Repository</a></p></div>
                                 <div style={{ textAlign: "center" }}> <p style={{ paddingBottom: "3%" }}> &copy; 2022 - Joshua Obiha</p></div>
                         </div>
 
