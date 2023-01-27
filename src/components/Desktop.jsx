@@ -118,7 +118,7 @@ const Desktop = () => {
                                                 <button type="button" class="btn btn-dark btn-secondary" data-toggle="tooltip" data-placement="top" title="Send Email" style={{ marginRight: '1%', marginLeft: '1%' }} onClick={() => window.location = 'mailto:joshua.obiha@hotmail.com'}>
                                                         GET IN TOUCH</button>
                                                 {/* <button style={{ marginLeft: '1%', marginRight: '1%' }} type="button" class="btn btn-outline-dark">RESUME</button> */}
-                                                <a style={{ marginLeft: '1%', marginRight: '1%' }} type="button" href="https://drive.google.com/file/d/10FgDt6_V4YfoZ69Ofp-CVWWJE8bEighh/view" class="btn btn-outline-dark">PDF Resume</a>
+                                                <a style={{ marginLeft: '1%', marginRight: '1%' }} type="button" href="https://drive.google.com/file/d/1Sn2xVLNpKZkFkYs1KCi8GemCwIn0pjm8/view?usp=sharing" class="btn btn-outline-dark">PDF Resume</a>
                                         </div>
                                 </motion.div>
 
@@ -215,7 +215,7 @@ const Desktop = () => {
                                 </div>
                         </div>
 
-                        <div style={{ marginLeft: '4%', marginRight: '4%' }}>
+                        {/* <div style={{ marginLeft: '4%', marginRight: '4%' }}>
 
                                 <form>
                                         <div style={{ width: '20em' }} class="form-group">
@@ -246,7 +246,7 @@ const Desktop = () => {
 
 
 
-                        </div>
+                        </div> */}
 
 
 
