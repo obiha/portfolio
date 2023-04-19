@@ -125,8 +125,8 @@ const Desktop = () => {
                                                         I'm a recent Computer Science graduate with a passion for the intersection of technology and design. Currently seeking roles in web development & data analysis to further advance my skills and bring innovative web solutions to life</p>
 
                                         </div>
-                                        <div style={{ display: "flex", alignItems: "center", marginTop: "1%"}}>
-                                        <button type="button" class="btn btn-dark btn-secondary" data-toggle="tooltip" data-placement="top" title="Send Email" style={{ marginRight: '1%', marginLeft: '41.5%' }} onClick={() => window.location = 'mailto:joshua.obiha@hotmail.com'}>
+                                        <div style={{ display: "flex", alignItems: "center", alignContent: "center", justifyContent: "center"}}>
+                                        <button type="button" class="btn btn-dark btn-secondary" data-toggle="tooltip" data-placement="top" title="Send Email" style={{ marginRight: '1%', marginLeft: '1%' }} onClick={() => window.location = 'mailto:joshua.obiha@hotmail.com'}>
                                                         GET IN TOUCH</button>
                                                 {/* <button style={{ marginLeft: '1%', marginRight: '1%' }} type="button" class="btn btn-outline-dark">RESUME</button> */}
                                                 <a style={{ marginLeft: '1%', marginRight: '1%' }} type="button" href="https://drive.google.com/file/d/1Sn2xVLNpKZkFkYs1KCi8GemCwIn0pjm8/view?usp=sharing" class="btn btn-outline-dark">PDF Resume</a>
